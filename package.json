@@ -1,0 +1,20 @@
+{
+  "name": "@raydeck/walk-dependencies",
+  "version": "1.0.0",
+  "description": "Dependency walker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhdeck/walk-dependencies.git"
+  },
+  "keywords": ["package.json", "dependencies", "recursive"],
+  "author": "Ray Deck",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rhdeck/walk-dependencies/issues"
+  },
+  "homepage": "https://github.com/rhdeck/walk-dependencies#readme"
+}
