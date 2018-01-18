@@ -5,13 +5,14 @@ function walkDependencies(path, useDevDependencies, cb) {
   const p = readPackageFromPath(path);
   if (p) {
     Object.keys(returnif(p.dependencies)).forEach(key => {
-      walkDependencies(resolve(key), useDevDependencies);
+      walkDependencies(resolve(key), useDevDependencies, cb);
     });
     if (useDevDependencies) {
       Object.keys(returnif(p.devDependencies)).forEach(key => {
-        walkDependencies(resolve(key), useDevDependencies);
+        walkDependencies(resolve(key), useDevDependencies, cb);
       });
     }
+    cb(path, p);
   }
 }
 function returnif(obj) {
