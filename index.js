@@ -1,8 +1,6 @@
 const fs = require("fs");
 const Path = require("path");
 function walkDependencies(path, useDevDependencies, cb, ancestors) {
-  console.log(ancestors);
-  console.log("Starting with path ", path);
   if (!path) return null;
   const p = readPackageFromPath(path);
   var dobreak = false;
