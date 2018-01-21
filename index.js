@@ -1,8 +1,19 @@
 const fs = require("fs");
 const Path = require("path");
 function walkDependencies(path, useDevDependencies, cb, ancestors) {
+  console.log(ancestors);
+  console.log("Starting with path ", path);
   if (!path) return null;
   const p = readPackageFromPath(path);
+  var dobreak = false;
+  if (ancestors) {
+    ancestors.forEach(o => {
+      if (o.name == p.name) {
+        dobreak = true;
+      }
+    });
+  }
+  if (dobreak) return null;
   if (!ancestors) ancestors = [];
   if (p) {
     ancestors.push({ name: p.name, version: p.version });
