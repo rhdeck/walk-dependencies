@@ -3,7 +3,7 @@ const Path = require("path");
 function getModulePath(m, pathArray) {
   //OK, so lets find this package
   var out = null;
-  pathArray.forEach(path => {
+  pathArray.forEach((path) => {
     if (!path) return;
     if (out) return;
     while (true) {
@@ -33,14 +33,15 @@ function walkDependencies(
   useDevDependencies,
   cb,
   ancestors,
-  ancestorpaths
+  ancestorpaths,
+  recurse = true
 ) {
   if (!path) return null;
   path = getPackagePath(path);
   const p = readPackageFromPath(path);
   var dobreak = false;
   if (ancestors) {
-    ancestors.forEach(o => {
+    ancestors.forEach((o) => {
       if (o.name == p.name) {
         dobreak = true;
       }
@@ -53,25 +54,27 @@ function walkDependencies(
   if (p) {
     ancestors.push({ name: p.name, version: p.version });
     const ds = returnif(p.dependencies);
-    Object.keys(ds).forEach(key => {
+    Object.keys(ds).forEach((key) => {
       try {
-        walkDependencies(
-          getModulePath(key, ancestorpaths),
-          useDevDependencies,
-          cb,
-          ancestors
-        );
-      } catch (e) {}
-    });
-    if (useDevDependencies) {
-      Object.keys(returnif(p.devDependencies)).forEach(key => {
-        try {
+        if (recurse)
           walkDependencies(
             getModulePath(key, ancestorpaths),
             useDevDependencies,
             cb,
             ancestors
           );
+      } catch (e) {}
+    });
+    if (useDevDependencies) {
+      Object.keys(returnif(p.devDependencies)).forEach((key) => {
+        try {
+          if (recurse)
+            walkDependencies(
+              getModulePath(key, ancestorpaths),
+              useDevDependencies,
+              cb,
+              ancestors
+            );
         } catch (e) {}
       });
     }
