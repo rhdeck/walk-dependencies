@@ -1,6 +1,6 @@
 {
   "name": "@raydeck/walk-dependencies",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "Dependency walker",
   "main": "index.js",
   "scripts": {
